@@ -1,0 +1,35 @@
+array is an object with numeric keys => simple
+convert object to array: not simple but can transform with hash function 
+(normally use charCodeAt to convert char to code which is number)
+Example:
+<>
+
+  const count = new Array(26).fill(0);
+  const aCharCode = 'a'.charCodeAt(0);
+
+  for (let i = 0; i < s.length; i++) {
+      count[s.charCodeAt(i) - aCharCode]++;
+      count[t.charCodeAt(i) - aCharCode]--;
+  }
+
+</>
+
+* Purpose:
++ Fast lookup: when number of records is million or billion, this data structure is extremely effective
++ mapping / storage: like a dicitonary with key - value storage
++ remove duplicate / track frequency
+
+* Hash collision problem:
++ seperate chaining(open hashing): 
+  hash(key1) → index 2 → [key1]
+  hash(key2) → index 2 → [key1, key2]
++ open address(closed hasing): 
+  - linear(index + 1, index + 2, ...): 
+    index = hash(key) = 3
+    slot 3 occupied → check 4 → check 5 → insert at 5
+  - Quadratic probing(index + 1², index + 2², index + 3²,...):
+    index = hash(key) = 3
+    slot 3 occupied → check 8 → check 11 → insert at 11
+  - double hashing: use a second hash function to jump
++ rehasing and reallocation
+  - increase size of hash map and rehash when load factor(= number_of_elements / table_size)
