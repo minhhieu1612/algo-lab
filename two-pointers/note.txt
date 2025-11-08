@@ -1,0 +1,29 @@
+* Applicable problem:
+1) Sorted array & need to find a pair/target
+Typical pattern: one pointer at start, one at end.
+
+Examples:
++ Find two numbers that sum to X
++ Count pairs less than X
++ Check if array has a pair with difference X
+
+2) Removing / skipping / filtering elements in-place
+One fast pointer scans, one slow pointer builds result.
+
+Examples:
++ Remove duplicates in sorted array
++ Remove specific value
++ Move zeros to end
+3) Reverse or compare from both ends
+Examples:
++ Check if a string is a palindrome
++ Compare start/end values for symmetry
++ Reverse array/string in place
+
+4) Sliding / shrinking window problems
+A “window” grows and shrinks using two pointers.
+
+Examples:
++ Find longest substring without repeating chars
++ Minimum window to satisfy condition
++ Max consecutive elements with condition
