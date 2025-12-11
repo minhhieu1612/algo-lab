@@ -14,9 +14,8 @@
  */
 var maxProfit = function (prices) {
   let l = 0,
-    r = prices.length - 1;
-  let entry = prices[l],
-    target = prices[r];
+    r = 1,
+    pro = 0;
 
   // [7,1,5,3,6,4]
   // l = 0 , r = 1, pro = 0
@@ -25,4 +24,18 @@ var maxProfit = function (prices) {
   // p[l] < p[r] => pro = Math.max(p[r] - p[l], pro); r++
   // p[l] < pr[r] => pro = Math.max(p[r] - p[l], pro); r++;
   // until r reach the end of the array
+
+  while (r < prices.length) {
+    if (prices[l] >= prices[r]) {
+      l = r;
+    } else {
+      pro = Math.max(pro, prices[r] - prices[l]);
+    }
+
+    r++;
+  }
+
+  return pro;
 };
+
+console.log(maxProfit([7, 1, 5, 3, 6, 4]));
