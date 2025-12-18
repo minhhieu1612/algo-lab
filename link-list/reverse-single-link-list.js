@@ -1,3 +1,4 @@
+const { arrToList, listToArr } = require("./utils");
 /**
  * Definition for singly-linked list.
  * function ListNode(val, next) {
@@ -43,21 +44,10 @@ var reverseList = function (head) {
   return newList;
 };
 
-const arr = new Array(5).fill(0).map((_, idx) => ({ val: idx + 1, next: null }))
-
-arr.forEach((_, idx) => {
-  _.next = arr[idx + 1] ?? null;
-})
-
+const arr = new Array(5).fill(0).map((_, idx) => idx + 1);
+const list = arrToList(arr);
 console.log(arr);
 
-let reversedList = reverseList(arr[0]);
+let reversedList = reverseList(list);
 
-const newArr = [];
-
-while (reversedList.next) {
-  newArr.push(reversedList);
-  reversedList = reversedList.next;
-}
-
-console.log(newArr);
+console.log(listToArr(reversedList));

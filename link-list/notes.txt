@@ -1,0 +1,6 @@
+*Implementation:
++ check whether list contains >= 2 nodes
++ need to maintain the connection between nodes through next pointer
++ think of prev and current node to store node info and perform actions
+on them
++ head node is the result, not the tail of the list
