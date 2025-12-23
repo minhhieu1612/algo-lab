@@ -41,7 +41,7 @@ const processByStack = (root) => {
     // move to left first
     while (curr) {
       stack.push(curr);
-      curr = curr?.left ?? null;
+      curr = curr?.left;
     }
 
     // perform the operations
@@ -50,10 +50,7 @@ const processByStack = (root) => {
 
     // then right node
     if (node?.right) {
-      stack.push(node.right);
-
-      // recheck the existence of left node on the right sub-tree
-      if (node.right?.left) curr = node.right.left;
+      curr = node.right
     }
   }
 };
