@@ -1,8 +1,29 @@
 /**
- * Given the input is sorted array
- * and return binary search tree
+ * @typedef {Object} NodeType
+ * @property {number} value
+ * @property {Object | null} left
+ * @property {Object | null} right
  */
 
+/**
+ * Given the input is sorted array
+ * and a return binary search tree
+ * @param {Array<number>} arr: a sorted array from left to right
+ * @returns {NodeType}
+ * @example
+ * ```
+ * arr=[1,2,3,4,5,6,7,8,9,10]
+ *
+ * =>                    6
+ *                      / \
+ *                     /   \
+ *                    3     9
+ *                   / \   /  \
+ *                  1   4 7   10
+ *                   \   \ \
+ *                    2   5 8
+ * ```
+ */
 const toBinaryTree = function (arr) {
   function binaryIterate(arr, start, end) {
     if (end - start <= 1) {
@@ -26,5 +47,5 @@ const toBinaryTree = function (arr) {
 };
 
 module.exports = {
-  toBinaryTree
-}
+  toBinaryTree,
+};
