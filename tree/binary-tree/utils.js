@@ -1,8 +1,8 @@
 /**
  * @typedef {Object} NodeType
  * @property {number} value
- * @property {Object | null} left
- * @property {Object | null} right
+ * @property {Object | undefined} left
+ * @property {Object | undefined} right
  */
 
 /**
@@ -14,14 +14,13 @@
  * ```
  * arr=[1,2,3,4,5,6,7,8,9,10]
  *
- * =>                    6
- *                      / \
- *                     /   \
- *                    3     9
- *                   / \   /  \
- *                  1   4 7   10
- *                   \   \ \
- *                    2   5 8
+ * =>                   6
+ *                     / \
+ *                    3   9
+ *                   / \  / \
+ *                  1   47   10
+ *                   \   \\
+ *                    2   58
  * ```
  */
 const toBinaryTree = function (arr) {
@@ -46,6 +45,42 @@ const toBinaryTree = function (arr) {
   return binaryIterate(arr, 0, arr.length - 1);
 };
 
+const DEFAULT_SPAN = "   "
+/**
+ * Print out the tree structure
+ * @param {NodeType} root binary node
+ */
+const printTree = (root) => {
+  let result = [];
+  const queue = [root];
+  let depth = 0;
+
+  while (queue.length) {
+    const node = queue.shift();
+
+    let str = result?.[depth] || "";
+    let increaseDepth = false;
+
+    if (node?.left) {
+      queue.push(node.left);
+      increaseDepth = true;
+
+    }
+    if (node?.right) {
+      queue.push(node.right);
+      increaseDepth = true;
+    }
+    if (increaseDepth) {
+      depth++;
+    }
+  }
+
+  console.log(result);
+};
+
+// printTree(toBinaryTree(new Array(3).fill(0).map((_, idx) => idx + 1)));
+
 module.exports = {
   toBinaryTree,
+  printTree,
 };
