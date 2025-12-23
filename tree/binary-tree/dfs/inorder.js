@@ -49,9 +49,7 @@ const processByStack = (root) => {
     console.log(node.value);
 
     // then right node
-    if (node?.right) {
-      curr = node.right
-    }
+    curr = node?.right;
   }
 };
 

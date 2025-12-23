@@ -84,7 +84,6 @@ const processByStackV2 = (root) => {
 
     // then right node
     if (peek?.right && lastVisisted !== peek.right) {
-      // then start from right sub-tree
       curr = peek.right;
     } else {
       // perform action here
