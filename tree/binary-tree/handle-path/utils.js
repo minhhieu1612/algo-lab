@@ -55,8 +55,6 @@ const printPaths = (paths) => {
 
     str += "\n";
   });
-
-  console.log(str);
 };
 
 module.exports = {

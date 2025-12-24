@@ -56,7 +56,42 @@ const processByStack = (root) => {
 
 // const paths = processByStack(tree);
 
-// printPaths(paths);
+/**
+ * Get all paths from root to leaf node by recursion
+ * @param {import("../utils").NodeType} root binary tree
+ * @param {Array<Array<import("../utils").NodeType>>} paths all paths
+ * @param {Array<import("../utils").NodeType>} path
+ * @returns {Array<Array<import("../utils").NodeType>>}
+ */
+const processByRecursion = (root) => {
+  const paths = [];
+  const path = [];
+
+  const findPaths = (root) => {
+    if (!root) {
+      return paths;
+    }
+
+    path.push(root);
+
+    findPaths(root.left, paths, path);
+    findPaths(root.right, paths, path);
+
+    if (!root.left && !root.right) {
+      paths.push([...path]);
+    }
+
+    path.pop();
+
+    return paths;
+  };
+
+  return findPaths(root);
+};
+
+const paths = processByRecursion(tree);
+
+printPaths(paths);
 
 module.exports = {
   rootToLeafPaths: processByStack,

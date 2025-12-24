@@ -52,17 +52,17 @@ const toBinaryTree = function (arr) {
 const printTree = (root) => {
   let result = [];
   const queue = [root];
-  let depth = 0;
+  let height = 0;
   let siblingsHaveChildren = false;
 
   while (queue.length) {
     const node = queue.shift();
     const val = node?.value ?? "-";
 
-    if (!result?.[depth]) {
-      result[depth] = [val];
+    if (!result?.[height]) {
+      result[height] = [val];
     } else {
-      result[depth].push(val);
+      result[height].push(val);
     }
 
     if (node?.left || node?.right) {
@@ -74,13 +74,12 @@ const printTree = (root) => {
       queue.push(node.right);
     }
 
-    if (queue.length === Math.pow(2, depth + 1)) {
-      depth++;
+    if (queue.length === Math.pow(2, height + 1)) {
+      height++;
       siblingsHaveChildren = false;
     }
   }
 
-  // console.log(result);
   const strArr = result.map((r) => {
     let str = "";
     r.forEach((val, idx) => {
@@ -104,21 +103,21 @@ const printTree = (root) => {
         (res, _, idx) => res + (idx ? new Array(idx + 2).join(" \n") : "") + _,
         ""
       )
-      // .join("\n\n")
+    // .join("\n\n")
   );
 };
 
 // printTree(toBinaryTree(new Array(15).fill(0).map((_, idx) => idx + 1)));
 // expect
 /**
- *             8 
+ *             8
  *
  *           4 12
- * 
+ *
  *
  *        2 6   10 14
- * 
- * 
+ *
+ *
  *
  * 1 3   5 7   9 11   13 15
  */

@@ -21,7 +21,7 @@ console.log("target:", target);
  * Get path from root to target node
  * @param {import("../utils").NodeType} root node tree
  * @param {number} target
- * @returns {Array<Array<number>>}
+ * @returns {Array<import("../utils").NodeType>}
  */
 const rootToTargetNode = (root, target) => {
   const path = [];
@@ -32,10 +32,9 @@ const rootToTargetNode = (root, target) => {
   // use postorder dfs
   while (curr || stack.length) {
     while (curr) {
-      const val = curr.value;
-      path.push(val);
+      path.push(curr);
 
-      if (val === target) {
+      if (curr.value === target) {
         return path;
       }
 
