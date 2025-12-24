@@ -45,7 +45,6 @@ const toBinaryTree = function (arr) {
   return binaryIterate(arr, 0, arr.length - 1);
 };
 
-const DEFAULT_SPAN = "   "
 /**
  * Print out the tree structure
  * @param {NodeType} root binary node
@@ -54,31 +53,75 @@ const printTree = (root) => {
   let result = [];
   const queue = [root];
   let depth = 0;
+  let siblingsHaveChildren = false;
 
   while (queue.length) {
     const node = queue.shift();
+    const val = node?.value ?? "-";
 
-    let str = result?.[depth] || "";
-    let increaseDepth = false;
+    if (!result?.[depth]) {
+      result[depth] = [val];
+    } else {
+      result[depth].push(val);
+    }
 
-    if (node?.left) {
+    if (node?.left || node?.right) {
+      siblingsHaveChildren = true;
+    }
+
+    if (typeof node?.value === "number" && siblingsHaveChildren) {
       queue.push(node.left);
-      increaseDepth = true;
-
-    }
-    if (node?.right) {
       queue.push(node.right);
-      increaseDepth = true;
     }
-    if (increaseDepth) {
+
+    if (queue.length === Math.pow(2, depth + 1)) {
       depth++;
+      siblingsHaveChildren = false;
     }
   }
 
-  console.log(result);
+  // console.log(result);
+  const strArr = result.map((r) => {
+    let str = "";
+    r.forEach((val, idx) => {
+      if (idx) {
+        str += idx % 2 === 0 ? "   " : " ";
+      }
+      str += val;
+    });
+
+    return str;
+  });
+  const lastLen = strArr[strArr.length - 1].length;
+
+  console.log(
+    strArr
+      .map(
+        (s) =>
+          new Array(Math.round((lastLen - s.length) / 2)).fill(" ").join("") + s
+      )
+      .reduce(
+        (res, _, idx) => res + (idx ? new Array(idx + 2).join(" \n") : "") + _,
+        ""
+      )
+      // .join("\n\n")
+  );
 };
 
-// printTree(toBinaryTree(new Array(3).fill(0).map((_, idx) => idx + 1)));
+// printTree(toBinaryTree(new Array(15).fill(0).map((_, idx) => idx + 1)));
+// expect
+/**
+ *             8 
+ *
+ *           4 12
+ * 
+ *
+ *        2 6   10 14
+ * 
+ * 
+ *
+ * 1 3   5 7   9 11   13 15
+ */
 
 module.exports = {
   toBinaryTree,
