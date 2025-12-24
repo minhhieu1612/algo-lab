@@ -141,3 +141,9 @@ const depth = processByDFSRecursionV2(tree);
 // const depth = processByBFSQueue(tree);
 
 console.log("depth:", depth);
+
+module.exports = {
+  maxDepthByStack: processByDFSStack,
+  maxDepthByQueue: processByBFSQueue,
+  maxDepthByRecursion: processByDFSRecursionV2,
+};

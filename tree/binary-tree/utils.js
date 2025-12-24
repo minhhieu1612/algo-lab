@@ -1,8 +1,8 @@
 /**
  * @typedef {Object} NodeType
  * @property {number} value
- * @property {Object | undefined} left
- * @property {Object | undefined} right
+ * @property {NodeType | undefined} left
+ * @property {NodeType | undefined} right
  */
 
 /**

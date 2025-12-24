@@ -24,6 +24,8 @@ const mergeToPathFromRoot = (a, b) => {
   return pathA.reverse().concat(pathB);
 };
 
+
+
 /**
  * Print out the beautified version of path
  * @param {Array<import("../utils").NodeType>} path

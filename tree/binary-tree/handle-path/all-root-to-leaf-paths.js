@@ -14,8 +14,6 @@ const tree = toBinaryTree(new Array(10).fill(0).map((_, index) => index + 1));
  *                    2   5 8
  */
 
-console.log(tree);
-
 /**
  * Get all paths from root node
  * @param {import("../utils").NodeType} root node tree
