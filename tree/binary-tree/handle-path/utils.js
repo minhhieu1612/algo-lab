@@ -1,15 +1,18 @@
 /**
  * Merge two paths started from root node
- * @param {number[]} pathA path from root node
- * @param {number[]} pathB path
- * @returns {number[]} merged path from start => end
+ * @param {import("../utils").NodeType[]} a path from root node
+ * @param {NodeType[]} b path
+ * @returns {NodeType[]} merged path from start => end
  */
-const mergeToPathFromRoot = (pathA, pathB) => {
+const mergeToPathFromRoot = (a, b) => {
+  const pathA = [...a];
+  const pathB = [...b];
+
   if (!pathA.length || !pathB.length) return [];
 
   while (
-    typeof pathA?.[1] === "number" &&
-    typeof pathB?.[1] === "number" &&
+    typeof pathA?.[1] === "object" &&
+    typeof pathB?.[1] === "object" &&
     pathA?.[1] === pathB?.[1]
   ) {
     pathA.shift();
@@ -23,13 +26,13 @@ const mergeToPathFromRoot = (pathA, pathB) => {
 
 /**
  * Print out the beautified version of path
- * @param {Array<Array<number>>} path
+ * @param {Array<import("../utils").NodeType>} path
  */
 const printPath = (path) => {
   let str = `path from start (${DEFAULT_START}) to end (${DEFAULT_END}): `;
-  path.forEach((num, idx) => {
+  path.forEach((node, idx) => {
     if (idx) str += " => ";
-    str += num;
+    str += node.value;
   });
 
   console.log(str);
@@ -38,16 +41,16 @@ const printPath = (path) => {
 
 /**
  * Print out the beautified version of paths
- * @param {Array<Array<number>>} paths
+ * @param {Array<Array<import("../utils").NodeType>>} paths
  */
 const printPaths = (paths) => {
   let str = "";
 
   paths.forEach((p, id) => {
     str += `Root to leaf path ${id + 1}: `;
-    p.forEach((num, idx) => {
+    p.forEach((node, idx) => {
       if (idx) str += " => ";
-      str += num;
+      str += node.value;
     });
 
     str += "\n";

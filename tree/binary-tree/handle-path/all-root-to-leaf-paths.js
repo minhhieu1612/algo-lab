@@ -19,7 +19,7 @@ console.log(tree);
 /**
  * Get all paths from root node
  * @param {import("../utils").NodeType} root node tree
- * @returns {Array<Array<number>>}
+ * @returns {Array<Array<import("../utils").NodeType>>}
  */
 const processByStack = (root) => {
   const paths = [];
@@ -32,7 +32,7 @@ const processByStack = (root) => {
   while (curr || stack.length) {
     while (curr) {
       stack.push(curr);
-      path.push(curr.value);
+      path.push(curr);
       curr = curr.left;
     }
 

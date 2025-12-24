@@ -1,5 +1,6 @@
 const { toBinaryTree } = require("../utils");
 const { rootToTargetNode } = require("./root-to-target-node");
+const { printPath } = require("./utils");
 
 const tree = toBinaryTree(new Array(10).fill(0).map((_, index) => index + 1));
 /**
@@ -23,7 +24,7 @@ console.log("start:", DEFAULT_START, ", end:", DEFAULT_END);
  * @param {import("../utils").NodeType} root node tree
  * @param {number} start
  * @param {number} end
- * @returns {Array<Array<number>>}
+ * @returns {Array<import("../utils").NodeType>}
  */
 const processByStack = (root, start, end) => {
   const pathStart = rootToTargetNode(root, start);
