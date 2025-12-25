@@ -1,6 +1,6 @@
-const { toBinaryTree } = require("../utils");
+const { toBalancedBinaryTree } = require("../utils");
 
-const tree = toBinaryTree(new Array(10).fill(0).map((_, index) => index + 1));
+const tree = toBalancedBinaryTree(new Array(10).fill(0).map((_, index) => index + 1));
 /**
  * [1,2,3,4,5,6,7,8,9,10]
  *                       6

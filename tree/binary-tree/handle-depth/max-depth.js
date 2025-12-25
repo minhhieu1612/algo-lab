@@ -1,6 +1,6 @@
-const { toBinaryTree, printTree } = require("../utils");
+const { toBalancedBinaryTree, printTree } = require("../utils");
 
-const tree = toBinaryTree(new Array(10).fill(0).map((_, idx) => idx + 1));
+const tree = toBalancedBinaryTree(new Array(10).fill(0).map((_, idx) => idx + 1));
 
 printTree(tree);
 /**
@@ -136,8 +136,8 @@ const processByBFSQueue = (root) => {
 };
 
 // const depth = processByDFSRecursion(tree);
-const depth = processByDFSRecursionV2(tree);
-// const depth = processByDFSStack(tree);
+// const depth = processByDFSRecursionV2(tree);
+const depth = processByDFSStack(tree);
 // const depth = processByBFSQueue(tree);
 
 console.log("depth:", depth);

@@ -7,7 +7,7 @@
 
 /**
  * Given the input is sorted array
- * and a return binary search tree
+ * and return a balanced binary search tree
  * @param {Array<number>} arr: a sorted array from left to right
  * @returns {NodeType}
  * @example
@@ -23,7 +23,7 @@
  *                    2   58
  * ```
  */
-const toBinaryTree = function (arr) {
+const toBalancedBinaryTree = function (arr) {
   function binaryIterate(arr, start, end) {
     if (end - start <= 1) {
       return {
@@ -43,6 +43,58 @@ const toBinaryTree = function (arr) {
   }
 
   return binaryIterate(arr, 0, arr.length - 1);
+};
+
+/**
+ * Convert a formated array to binary tree
+ * 
+ * Format will be like this:
+ * 
+ * [
+ * 
+ * root,
+ * 
+ * left1, right1,
+ * 
+ * left2_left1, right2_left1, left2_right1, right2_right1,
+ * 
+ * ... // so on
+ * 
+ * ]
+ * 
+ * @param {number[]} arr
+ * @returns {NodeType}
+ * @example
+ * ```
+ * printTree(toBinaryTree([1, 2, null, 4, 5, null, null, 6, 7, 8]))
+ * =>
+ *             1
+ *
+ *            2 -
+ *
+ *
+ *         4 5   - -
+ *
+ *
+ *
+ *   6 7   8 -   - -   - -
+ * ```
+ */
+const toBinaryTree = (arr) => {
+  const toTree = (arr, idx) => {
+    if (idx > arr.length - 1 || typeof arr[idx] !== "number") return null;
+
+    const result = {
+      value: arr[idx],
+    };
+
+    result.left = toTree(arr, 2 * idx + 1);
+    result.right = toTree(arr, 2 * idx + 2);
+
+    return result;
+  };
+
+  return toTree(arr, 0);
 };
 
 /**
@@ -69,9 +121,9 @@ const printTree = (root) => {
       siblingsHaveChildren = true;
     }
 
-    if (typeof node?.value === "number" && siblingsHaveChildren) {
-      queue.push(node.left);
-      queue.push(node.right);
+    if (siblingsHaveChildren) {
+      queue.push(node?.left);
+      queue.push(node?.right);
     }
 
     if (queue.length === Math.pow(2, height + 1)) {
@@ -100,14 +152,14 @@ const printTree = (root) => {
           new Array(Math.round((lastLen - s.length) / 2)).fill(" ").join("") + s
       )
       .reduce(
-        (res, _, idx) => res + (idx ? new Array(idx + 2).join(" \n") : "") + _,
+        (res, _, idx) => res + (idx ? new Array(idx + 2).join("\t\n") : "") + _,
         ""
       )
     // .join("\n\n")
   );
 };
 
-// printTree(toBinaryTree(new Array(15).fill(0).map((_, idx) => idx + 1)));
+// printTree(toBalancedBinaryTree(new Array(15).fill(0).map((_, idx) => idx + 1)));
 // expect
 /**
  *             8
@@ -122,7 +174,10 @@ const printTree = (root) => {
  * 1 3   5 7   9 11   13 15
  */
 
+printTree(toBinaryTree([1, 2, null, 4, 5, null, null, 6, 7, 8]));
+
 module.exports = {
+  toBalancedBinaryTree,
   toBinaryTree,
   printTree,
 };

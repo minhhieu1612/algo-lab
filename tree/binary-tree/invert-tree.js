@@ -7,7 +7,7 @@
  * }
  */
 
-const { toBinaryTree } = require("./utils");
+const { toBalancedBinaryTree } = require("./utils");
 
 /**
  * @param {TreeNode} root
@@ -51,7 +51,7 @@ var dfStackInvertTree = function (root) {
   return newRoot;
 };
 
-const tree = toBinaryTree([4, 2, 7, 1, 3, 6, 9]);
+const tree = toBalancedBinaryTree([4, 2, 7, 1, 3, 6, 9]);
 console.log(tree);
 
 // const start = performance.now();
