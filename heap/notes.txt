@@ -1,0 +1,6 @@
+*Properties:
++ its bst always has the root to leaf paths arranged
++ heapify up(when insert) always ensure the root to new leaf in order
++ heapify down(when remove) guarantee the removed root element will be 
+replaced by the most adjacent decendants (left and right child: the smallest
+of each side) so root will be the minimum/maximum.
