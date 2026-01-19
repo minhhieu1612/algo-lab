@@ -114,8 +114,51 @@ var getSum = function (a, b) {
 };
 
 function getSumV2(a, b) {
-  console.log(a.toString(2), b.toString(2));
-  return b == 0 ? a : getSumV2(a ^ b, (a & b) << 1); //be careful about the terminating condition;
+  // For add case (a and b have the same sign)
+  // we can follow this formula: a + b = (a ^ b) + (a & b << 1)  (1)
+  // a ^ b solve the sum between: 1 - 0 and 0 - 1
+  // a & b << 1 is the carry part for sum of: 1 - 1 => 10 and 0 - 0 => 0
+
+  // For subtract case (a has opposite sign compared with b)
+  // The same formula (1) can be applied
+  // a ^ b has two properties:
+  // + the sign: 11..negative ^ 00..positive = 11..another_negative
+  // + convert negative to two's complement and back to complete the XOR operation
+  // for eg: 3 ^ -5 = 00..11 ^ -00..101 = 00..0011 ^ 11..1011(converted) 
+  // = 11..1000 = -8
+  // The carry (a & b << 1) has two properties:
+  // + the sign: alway positive
+  // + use two's complement to perform action:
+  // for eg: 3 & -5 = 00..11 & -00..101 = 00..0011 & 11..1011(converted)
+  // = 00..0011 = 3 => 00..0110 = 6
+  // one round with XOR get 11..1000 and carry get 00..0110 in checking 
+  // (a = 00..0011, b = 11..1011)
+
+  // subtract bit table:
+  // + a |-b | c |
+  // +---+---+---+
+  // + 0 | 0 | 0 |
+  // + 1 | 0 | 1 |
+  // + 0 | 1 |-1 | (borrow here)
+  // + 1 | 1 | 0 |
+  // +---+---+---+
+  // if we flip bit and add 1(-b = ~b + 1):
+  // + a |~b+1| c |
+  // +---+----+---+
+  // + 0 |  0 | 0 |
+  // + 1 |  0 | 1 |
+  // + 0 |  1 | 1 | (become normal addition)
+  // + 1 |  1 | 0 | (become carry)
+  // +---+----+---+
+  while (b !== 0) {
+    let carry = (a & b) << 1;
+
+    console.log(a.toString(2), b.toString(2), carry.toString(2));
+    a = a ^ b;
+    b = carry;
+  }
+
+  return a;
 }
 
 console.log(getSumV2(3, -5));
@@ -126,3 +169,14 @@ console.log(getSumV2(3, -5));
 // now xor the -1000 and 110 become -(1000 ^ 110) = 1110
 // now flip back and add 1 to get the result = -(1 + 1) = -10(-2)
 // a ^ -b => - (a ^ (b_flip + 1)) = -(c_flip + 1)
+
+// convert to two's complement
+// -3 ^ 7 = -11 ^ 111 = 11..101 ^ 00..111 = 11..010
+// convert back from two's complement
+// 11..010 => -00..101 => -00..110
+
+// -3 ^ -7 = -11 ^ -111
+// convert to two's complement
+// -00..11 ^ -00..111 => 11..101 ^ 11..1001 = 00..100
+// convert back
+// 00..100 => 00..11 => 00..100
